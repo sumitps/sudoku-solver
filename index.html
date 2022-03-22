@@ -65,6 +65,33 @@
 
     <script>
         var solved = [];
+        function dispComplete(){
+            let errp = document.getElementById('err');
+            errp.style.display='block';
+            errp.style.color='green';
+            errp.innerText = 'Awesome!, you have completed this puzzle!';
+
+        }
+        function iscomplete(){
+            let a = 0;
+            let b = 0;
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                    cell = document.getElementById('r'+i+'c'+j);
+                    if(cell.childElementCount != 0){
+                        a++;
+                        if(cell.firstChild.getAttribute('isvalid') == 'true'){
+                            b++;
+                        }
+                    }
+                }
+            }
+            if(a == b){
+                dispComplete();
+            }else{
+                console.log('a:' + a + ' b: ' + b );
+            }
+        }
         function update(selectObject){
             var value = selectObject.value;  
             id = selectObject.parentElement.id;
@@ -73,13 +100,15 @@
             if(value != solved[row][col]){
                 selectObject.style.color = 'red';
                 selectObject.value = value;
+                selectObject.setAttribute('isvalid',false)
                 console.log("incorrect val");
             }
             else{
                 selectObject.style.color = 'green';
-                console.log("incorrect val");
+                selectObject.setAttribute('isvalid',true)
+                console.log("correct val");
             }
-            
+            iscomplete()
         }
 
         function addTable(arr){
@@ -121,6 +150,7 @@
 
         function errResp(){
             let errp = document.getElementById('err');
+            errp.style.color='red';
             errp.innerText = 'Could not fetch new sudoku, please refresh or select another level!'
             errp.style.display='block'
         }
@@ -160,6 +190,7 @@
             <option value="impossible">Impossible</option>
         </select>
         <div class="col-auto">
+            <br>
             <p id="err"></p>
           <table id="table" class="table table-responsive center">
             
