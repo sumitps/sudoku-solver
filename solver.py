@@ -1,7 +1,6 @@
 import copy
 import random
 import json
-from textwrap import indent
 
 def getStarterArr():
     arr = []
@@ -111,8 +110,8 @@ def removeValues(ar, level):
             ar[i].pop(idx)
             ar[i].insert(idx,0)
             c+=1
-    for i in ar:
-        print(i)
+    #for i in ar:
+        #print(i)
     return ar
 
 
@@ -123,10 +122,10 @@ def getSudoku(level):
         m+=1
         f = createSudoku()
         if(f[0] == 8 and f[1] == 8):
-            print('Found Solution:')
+            print('Found Solution')
             x = True
-            for i in f[2]:
-                print(i)
+            #for i in f[2]:
+                #print(i)
             break
     if(not x):
         print('Try Again')
@@ -134,7 +133,7 @@ def getSudoku(level):
         d["data"] = ""
         json_string = json.dumps(d)
     else:
-        print('Sudoku:')
+        print('Sudoku Found')
         d = dict()        
         d["data"] = {'solved': f[2]}
         lis2 = copy.deepcopy(f[2])  
